@@ -1,35 +1,37 @@
 package com.ber.android_hws
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.SimpleAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ber.android_hws.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val recycler = findViewById<RecyclerView>(R.id.recycler)
-        val layoutManager = LinearLayoutManager(this)
-        val adapter = SimpleAdapter {
-            Toast.makeText(this, "Item - $it", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity2::class.java)
-            startActivity(intent)
+        val adapter = SimpleAdapter{
+            Toast.makeText(this, "this is the item - $it", Toast.LENGTH_SHORT).show()
         }
-        recycler.layoutManager = layoutManager
+
+        val recycler = binding.recycler
         recycler.adapter = adapter
+        recycler.layoutManager = LinearLayoutManager(this)
         recycler.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
 
         val list = mutableListOf<String>()
-        for (i in 0..20) {
-            list.add("ITEM -$i")
+        for (i in 1..30) {
+            list.add("ITEM - $i")
         }
+
         adapter.setData(list)
     }
 }
-
