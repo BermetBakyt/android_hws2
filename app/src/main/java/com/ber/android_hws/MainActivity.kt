@@ -30,6 +30,12 @@ class MainActivity : AppCompatActivity(), OnButtonClicked {
             .addToBackStack(null)
             .commit()
     }
+
+    override fun showNewActivity(position: Int) {
+        val intent = Intent("MyAction")
+        intent.putExtra("key", position)
+        startActivity(intent)
+    }
 }
 
 
