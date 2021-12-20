@@ -9,27 +9,27 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnButtonClicked {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recycler = findViewById<RecyclerView>(R.id.recycler)
-        val layoutManager = LinearLayoutManager(this)
-        val adapter = SimpleAdapter {
-            Toast.makeText(this, "Item - $it", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity2::class.java)
-            startActivity(intent)
-        }
-        recycler.layoutManager = layoutManager
-        recycler.adapter = adapter
-        recycler.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
+        supportFragmentManager.beginTransaction()
+            .add(R.id.frag_cont,Fragment1()).commit()
+    }
 
-        val list = mutableListOf<String>()
-        for (i in 0..20) {
-            list.add("ITEM -$i")
-        }
-        adapter.setData(list)
+    override fun setText(enterText: String) {
+        val fragment2 = Fragment2()
+        val bundle = Bundle()
+        bundle.putString("text",enterText)
+        fragment2.arguments = bundle
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frag_cont,fragment2)
+            .addToBackStack(null)
+            .commit()
     }
 }
+
 
