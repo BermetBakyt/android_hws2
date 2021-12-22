@@ -16,7 +16,9 @@ class MainActivity : AppCompatActivity(), OnButtonClicked {
         setContentView(R.layout.activity_main)
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.frag_cont,Fragment1()).commit()
+            .add(R.id.frag_cont,Fragment1())
+            .commit()
+
     }
 
     override fun setText(enterText: String) {
@@ -31,8 +33,8 @@ class MainActivity : AppCompatActivity(), OnButtonClicked {
             .commit()
     }
 
-    override fun showNewActivity(position: Int) {
-        val intent = Intent("MyAction")
+    override fun showNewActivity(position: String) {
+        val intent = Intent("myAction")
         intent.putExtra("key", position)
         startActivity(intent)
     }
