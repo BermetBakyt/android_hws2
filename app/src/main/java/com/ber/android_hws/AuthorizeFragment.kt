@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 
-class RegisterFragment: Fragment(R.layout.fragment_register) {
+class AuthorizeFragment : Fragment(R.layout.authorize_fragment) {
     private lateinit var listener: Navigator
     private var passwordIsNotEmpty = false
     private var loginIsNotEmpty = false
@@ -23,51 +22,40 @@ class RegisterFragment: Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val newLogin = view.findViewById<AppCompatEditText>(R.id.new_login)
-        val newPassword = view.findViewById<AppCompatEditText>(R.id.new_password)
-        val newButton = view.findViewById<AppCompatButton>(R.id.new_btn)
+        val login = view.findViewById<AppCompatEditText>(R.id.login)
+        val password = view.findViewById<AppCompatEditText>(R.id.password)
+        val button = view.findViewById<AppCompatButton>(R.id.auto_btn)
 
-        newLogin.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, start: Int, count: Int, after: Int) {}
+        login.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) { }
+            override fun beforeTextChanged(p0: CharSequence?, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(p0: CharSequence?, start: Int, before: Int, count: Int) {
                 if (p0.isNullOrEmpty()) {
                     loginIsNotEmpty = false
                 } else {
                     if (passwordIsNotEmpty) {
-                        newButton.isEnabled = true
+                        button.isEnabled = true
                     }
                     loginIsNotEmpty = true
                 }
             }
         })
-
-        newPassword.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-            override fun beforeTextChanged(
-                p0: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-            }
-
+        password.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(p0: Editable?) { }
+            override fun beforeTextChanged(p0: CharSequence?, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(p0: CharSequence?, start: Int, before: Int, count: Int) {
                 if (p0.isNullOrEmpty()) {
-                    passwordIsNotEmpty = false
+                    passwordIsNotEmpty = true
                 } else {
                     if (loginIsNotEmpty) {
-                        newButton.isEnabled = true
+                        button.isEnabled = true
                     }
                     passwordIsNotEmpty = true
                 }
             }
         })
-        newButton.setOnClickListener {
-            listener.changePrefs(newLogin.text.toString(), newPassword.text.toString())
+        button.setOnClickListener {
+                listener.checkPrefs(login.text.toString(), password.text.toString())
+            }
         }
     }
-}
-
-
-
