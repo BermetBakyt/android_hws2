@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#673AB7">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textfield.TextInputLayout
         app:errorEnabled="true"
@@ -16,7 +15,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/email_layout"
         android:hint="@string/email"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         app:helperText="Required"
         app:helperTextTextColor="#B81818"
         app:counterEnabled="true"
@@ -41,7 +39,6 @@
         app:layout_constraintTop_toBottomOf="@id/email_layout"
         app:layout_constraintBottom_toTopOf="@id/btn_sign_in"
         android:hint="@string/email"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         app:helperText="Required"
         app:helperTextTextColor="#B81818"
         app:counterEnabled="true"
