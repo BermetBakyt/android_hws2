@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_layout"
         app:layout_constraintBottom_toTopOf="@id/btn_sign_in"
-        android:hint="@string/email"
+        android:hint="@string/password"
         app:helperText="Required"
         app:helperTextTextColor="#B81818"
         app:counterEnabled="true"
