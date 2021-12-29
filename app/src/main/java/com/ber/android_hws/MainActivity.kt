@@ -2,36 +2,26 @@ package com.ber.android_hws
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.ber.android_hws.databinding.ActivityMainBinding
-
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatTextView
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var input: AppCompatEditText
+    private lateinit var text: AppCompatTextView
+    private lateinit var btn: AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        val adapter = SimpleAdapter{
-            Toast.makeText(this, "this is the item - $it", Toast.LENGTH_SHORT).show()
+        input = findViewById(R.id.edit)
+        text = findViewById(R.id.text)
+        btn = findViewById(R.id.btn)
+
+        btn.setOnClickListener {
+            val count = Regex("""(\s+|(\r\n|\r\n))""").findAll(input.text.toString().trim()).count() + 1
+            text.text = count.toString()
         }
-
-        val recycler = binding.recycler
-        recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(this)
-        recycler.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
-
-        val list = mutableListOf<String>()
-        for (i in 1..30) {
-            list.add("ITEM - $i")
-        }
-
-        adapter.setData(list)
     }
 }
