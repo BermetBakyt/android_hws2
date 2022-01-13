@@ -2,9 +2,8 @@ package com.ber.android_hws
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnBtnClicked {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -12,13 +11,13 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container, FragmentEdit())
-            .addToBackStack(null)
             .commit()
-
-        val btn = findViewById<AppCompatButton>(R.id.btnSave)
-        btn.setOnClickListener {
-
-        }
     }
 
+    override fun onClicked() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, FragmentSave())
+            .addToBackStack(null)
+            .commit()
+    }
 }
