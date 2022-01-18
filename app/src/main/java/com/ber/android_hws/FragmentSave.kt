@@ -11,11 +11,6 @@ class FragmentSave : Fragment(R.layout.save_fragment) {
     private val binding get() = _binding!!
     private val dbInstance get() = Injector.database
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = SaveFragmentBinding.bind(view)

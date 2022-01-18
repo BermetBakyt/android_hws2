@@ -1,21 +1,15 @@
 package com.ber.android_hws.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
 interface EmployeeDao {
-    @Query("SELECT * FROM employee")
-    fun getAll(): List<Employee>
 
-    @Query("SELECT * FROM employee WHERE id = :id")
-    fun getById(id: Long): Employee
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addUser(employee: Employee)
 
-    @Insert
-    fun insert(employee: Employee)
+    @Query("SELECT * FROM employee_data ORDER BY  id ASC")
+    fun readAllData(): LiveData<List<Employee>>
 
-    @Update
-    fun update(employee: Employee)
-
-    @Delete
-    fun delete(employee: Employee)
 }
