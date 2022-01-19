@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.ber.android_hws.database.AppDatabase.Companion.getDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -13,11 +12,12 @@ class EmployeeViewModel(application: Application): AndroidViewModel(application)
     private val repository: EmployeeRepository
 
     init {
-        val employeeDao = Employee.getDatabase(application).employeeDao()
+        val employeeDao = AppDatabase.getDatabase(application).employeeDao()
         repository = EmployeeRepository(employeeDao)
-        readAllData = repository.readAllData
+        readAllData = repository.readAlllData
     }
-    fun addEmployee(employee: Employee) {
+
+    fun addUser(employee: Employee) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addEmployee(employee)
         }

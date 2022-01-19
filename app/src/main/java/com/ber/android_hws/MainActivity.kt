@@ -3,7 +3,7 @@ package com.ber.android_hws
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity(), OnBtnClicked {
+class MainActivity : AppCompatActivity(), Navigation {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

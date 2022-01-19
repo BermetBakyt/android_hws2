@@ -7,7 +7,7 @@ import androidx.room.*
 interface EmployeeDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addUser(employee: Employee)
+    suspend fun addEmployee(employee: Employee)
 
     @Query("SELECT * FROM employee_data ORDER BY  id ASC")
     fun readAllData(): LiveData<List<Employee>>
