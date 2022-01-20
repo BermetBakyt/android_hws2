@@ -1,14 +1,17 @@
-package com.ber.android_hws.database
+package com.ber.android_hws.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.ber.android_hws.database.AppDatabase
+import com.ber.android_hws.repository.EmployeeRepository
+import com.ber.android_hws.model.Employee
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class EmployeeViewModel(application: Application): AndroidViewModel(application) {
-    private val readAllData: LiveData<List<Employee>>
+    val readAllData: LiveData<List<Employee>>
     private val repository: EmployeeRepository
 
     init {

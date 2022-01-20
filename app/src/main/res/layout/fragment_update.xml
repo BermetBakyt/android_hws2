@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.add.AddFragment">
+    tools:context=".fragments.add.AddFragment"
+    android:padding="24dp">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextName"
+        android:id="@+id/updateName"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Full Name"
@@ -22,7 +23,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextCompany"
+        android:id="@+id/updateCompany"
         android:ems="10"
         android:layout_marginTop="16dp"
         android:inputType="textPersonName"
@@ -31,12 +32,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:flow_horizontalBias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextName"/>
+        app:layout_constraintTop_toBottomOf="@id/updateName"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextSalary"
+        android:id="@+id/updateSalary"
         android:ems="10"
         android:layout_marginTop="16dp"
         android:hint="Salary"
@@ -44,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:flow_horizontalBias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextCompany"/>
+        app:layout_constraintTop_toBottomOf="@id/updateCompany"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSave"
@@ -57,7 +58,7 @@
         app:flow_horizontalBias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextSalary"/>
+        app:layout_constraintTop_toBottomOf="@id/updateSalary"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

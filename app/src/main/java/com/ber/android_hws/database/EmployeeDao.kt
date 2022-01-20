@@ -2,6 +2,7 @@ package com.ber.android_hws.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.ber.android_hws.model.Employee
 
 @Dao
 interface EmployeeDao {

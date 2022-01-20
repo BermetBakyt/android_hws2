@@ -11,8 +11,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ber.android_hws.R
-import com.ber.android_hws.database.Employee
-import com.ber.android_hws.database.EmployeeViewModel
+import com.ber.android_hws.model.Employee
+import com.ber.android_hws.viewModel.EmployeeViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 
@@ -38,7 +38,7 @@ class AddFragment : Fragment() {
         val company = editTextCompany.text.toString()
         val salary = editTextSalary.text
 
-        if(inputCheck(name, company, salary)) {
+        if(inputCheck(name, company, salary!!)) {
             //create User Object
             val employee = Employee(0,name, company, Integer.parseInt(salary.toString()))
             // Add Data to Database
