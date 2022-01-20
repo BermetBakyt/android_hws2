@@ -2,22 +2,20 @@ package com.ber.android_hws
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 
-class MainActivity : AppCompatActivity(), Navigation {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container, FragmentEdit())
-            .commit()
+        setupActionBarWithNavController(findNavController(R.id.fragmentContainerView))
     }
 
-    override fun onClicked() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, FragmentSave())
-            .addToBackStack(null)
-            .commit()
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.fragmentContainerView)
+        return super.onSupportNavigateUp() || super.onSupportNavigateUp()
     }
 }
