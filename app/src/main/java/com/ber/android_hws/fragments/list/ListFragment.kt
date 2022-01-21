@@ -1,44 +1,39 @@
 package com.ber.android_hws.fragments.list
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ber.android_hws.Injector
+import com.ber.android_hws.Navigation
 import com.ber.android_hws.R
-import com.ber.android_hws.viewModel.EmployeeViewModel
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(R.layout.fragment_list) {
+    private lateinit var listener: Navigation
+    private val dbInstance get() = Injector.database
 
-    private lateinit var mEmployeeViewModel: EmployeeViewModel
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as Navigation
+    }
 
-        // recycler view
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val adapter = ListAdapter()
         val recyclerView = view.recyclerview
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.addItemDecoration(DividerItemDecoration(activity, RecyclerView.VERTICAL))
 
-        // EmployeeViewModel
-        mEmployeeViewModel = ViewModelProvider(this).get(EmployeeViewModel::class.java)
-        mEmployeeViewModel.readAllData.observe(viewLifecycleOwner, Observer{ employee ->
-            adapter.setData(employee)
-        })
+        adapter.setData(emptyList())
 
-        view.floatingActionButton.setOnClickListener{
-            findNavController().navigate(R.id.action_listFragment_to_addFragment)
+        view.floatingActionButton.setOnClickListener {
+            listener.showAddFragment()
         }
-
-        return view
     }
 }
