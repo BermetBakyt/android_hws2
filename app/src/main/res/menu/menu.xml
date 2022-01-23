@@ -2,7 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menu_profile"
-        android:title="My profile"
-        app:showAsAction="withText"/>
+    <item android:id="@+id/menu_delete"
+        android:title="Delete"
+        android:icon="@drawable/delete_btn"
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/white"/>
 </menu>

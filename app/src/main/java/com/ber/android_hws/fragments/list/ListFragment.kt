@@ -5,15 +5,22 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ber.android_hws.Injector
 import com.ber.android_hws.Navigation
 import com.ber.android_hws.R
+import com.ber.android_hws.databinding.FragmentListBinding
+import kotlinx.android.synthetic.main.custom_row.*
+import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment(R.layout.fragment_list) {
+    private var _binding: FragmentListBinding ?= null
+    private val binding get() = _binding!!
+
     private lateinit var listener: Navigation
     private val dbInstance get() = Injector.database
 
@@ -24,16 +31,32 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = ListAdapter()
-        val recyclerView = view.recyclerview
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.addItemDecoration(DividerItemDecoration(activity, RecyclerView.VERTICAL))
+        _binding = FragmentListBinding.bind(view)
 
-        adapter.setData(emptyList())
+        binding.apply {
+            //Adapter
+            val adapter = ListAdapter {
+                listener.showAddFragment()
+            }
+            recyclerview.adapter = adapter
+            recyclerview.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
 
-        view.floatingActionButton.setOnClickListener {
-            listener.showAddFragment()
+            val list = dbInstance.employeeDao().getAll()
+            adapter.setData(list)
+
+            //add button
+            floatingActionButton.setOnClickListener {
+                listener.showAddFragment()
+            }
+            // Update button
+            customRowLayout.setOnClickListener {
+                listener.showUpdateFragment()
+            }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

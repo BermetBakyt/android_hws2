@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), Navigation {
         .replace(R.id.fragmentContainerView, AddFragment()).commit()
     }
 
-    override fun showUpdateFragment() {
+    override fun showUpdateFragment(id:Long) {
         supportFragmentManager.beginTransaction()
         .replace(R.id.fragmentContainerView, UpdateFragment()).commit()
     }
@@ -34,5 +34,8 @@ class MainActivity : AppCompatActivity(), Navigation {
         supportFragmentManager.beginTransaction()
         .add(R.id.fragmentContainerView, ListFragment()).commit()
     }
-
+companion object{
+    const val ITEM_KEY = "item"
+    const val ID_KEY = "id"
+}
 }
