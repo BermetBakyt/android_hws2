@@ -25,6 +25,8 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
     private lateinit var listener: Navigation
     private val dbInstance get() = Injector.database
 
+    private var empId: Long = 1L
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as Navigation
@@ -36,7 +38,8 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
 
         binding.apply {
             // show prev data
-            val id = arguments?.getLong(MainActivity.ID_KEY) ?: 1L
+            val id = arguments?.getLong("id") ?: -1L
+
             val prevInput = dbInstance.employeeDao().getById(id)
 
             var name = prevInput.name
@@ -44,45 +47,48 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
             var salary = prevInput.salary.toString()
 
             btnUpdate.setOnClickListener {
-                if (editTextName.text.isNullOrEmpty()) {
-                    name = editTextName.text.toString()
-                }
-                if (editTextCompany.text.isNullOrEmpty()) {
+                val employee = dbInstance.employeeDao().getById(empId)
+                if (employee == null) {
+                    Toast.makeText(activity, "Такого id нет", Toast.LENGTH_SHORT).show()
+                } else {
+                    editTextName.setText(name)
                     company = editTextCompany.text.toString()
-                }
-                if (editTextSalary.text.isNullOrEmpty()) {
                     salary = editTextSalary.text.toString()
+
+                    val e = Employee(
+                        id = prevInput.id,
+                        name = editTextCompany.text.toString(),
+                        company = editTextCompany.text.toString(),
+                        salary = editTextSalary.text.toString().toInt()
+                    )
+
+                    dbInstance.employeeDao().update(e)
+                    listener.onClick()
+                    Toast.makeText(context, "Inputs updated", Toast.LENGTH_SHORT).show()
                 }
+            }
+            val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+            toolbar.inflateMenu(R.menu.menu)
+            toolbar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_delete -> { deleteEmployee(id) }
+                    else -> {
 
-                val employee = Employee(id, name, company, salary.toInt())
-                dbInstance.employeeDao().update(employee)
-
-                Toast.makeText(context, "Inputs updated", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                true
             }
         }
-        val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.menu)
 
-        toolbar.setNavigationIcon(R.drawable.delete_btn)
-        toolbar.setNavigationOnClickListener {
-            deleteEmployee()
-        }
     }
 
-    private fun deleteEmployee() {
+     private fun deleteEmployee(id: Long) {
         binding.apply {
             // show prev data
-            val id = arguments?.getLong(MainActivity.ID_KEY) ?: 1L
-            val prevInput = dbInstance.employeeDao().getById(id)
+            val employee = dbInstance.employeeDao().getById(id)
+            dbInstance.employeeDao().delete(employee)
 
-            var name = prevInput.name
-            var company = prevInput.company
-            var salary = prevInput.salary.toString()
-
-            val employee = Employee(id, name, company, salary.toInt())
-                dbInstance.employeeDao().update(employee)
-
-                Toast.makeText(context, "Inputs updated", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Inputs deleted", Toast.LENGTH_SHORT).show()
         }
     }
 

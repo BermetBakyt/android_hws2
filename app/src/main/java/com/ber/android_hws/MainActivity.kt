@@ -18,24 +18,33 @@ class MainActivity : AppCompatActivity(), Navigation {
 
     private fun initFragment() {
         supportFragmentManager.beginTransaction()
-        .add(R.id.fragmentContainerView, ListFragment()).commit()
-    }
-    override fun showAddFragment() {
-        supportFragmentManager.beginTransaction()
-        .replace(R.id.fragmentContainerView, AddFragment()).commit()
+            .add(R.id.fragmentContainerView, ListFragment()).commit()
     }
 
-    override fun showUpdateFragment(id:Long) {
-        supportFragmentManager.beginTransaction()
-        .replace(R.id.fragmentContainerView, UpdateFragment()).commit()
+    override fun onAddClicked() {
+        val fragment = AddFragment()
+            supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, fragment)
+            .commit()
     }
 
-    override fun showListFragment() {
+    override fun onItemClicked(id: Long) {
+        val fragment = UpdateFragment()
+        val bundle = Bundle()
+        if(id !=null) {
+            bundle.putLong("id", id)
+        }
+        fragment.arguments = bundle
         supportFragmentManager.beginTransaction()
-        .add(R.id.fragmentContainerView, ListFragment()).commit()
+            .replace(R.id.fragmentContainerView, fragment)
+            .addToBackStack(null)
+            .commit()
     }
-companion object{
-    const val ITEM_KEY = "item"
-    const val ID_KEY = "id"
-}
+
+    override fun onClick() {
+        val fragment = ListFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, fragment)
+            .commit()
+    }
 }

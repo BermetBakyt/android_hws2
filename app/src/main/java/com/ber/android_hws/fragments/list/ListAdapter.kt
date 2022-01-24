@@ -10,7 +10,7 @@ import com.ber.android_hws.database.Employee
 import kotlinx.android.synthetic.main.custom_row.view.*
 
 class ListAdapter (
-    private val click: (pos: Int) -> Unit) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+    private val click: (id: Long) -> Unit) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
     var employeeList = listOf<Employee>()
 
     fun setData(list: List<Employee>) {
@@ -35,7 +35,7 @@ class ListAdapter (
 
     class ViewHolder(
         itemView: View,
-        private val click: (pos: Int) -> Unit
+        private val click: (id: Long) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(employee: Employee) {
@@ -49,9 +49,9 @@ class ListAdapter (
             company.text = employee.company
             salary.text = employee.salary.toString()
 
-//            itemView.setOnClickListener {
-//                click.invoke()
-//            }
+            itemView.setOnClickListener {
+                click.invoke(employee.id!!)
+            }
         }
     }
 }

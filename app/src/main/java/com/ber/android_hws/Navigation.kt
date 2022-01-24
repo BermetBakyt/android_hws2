@@ -1,7 +1,7 @@
 package com.ber.android_hws
 
 interface Navigation {
-    fun showListFragment()
-    fun showUpdateFragment()
-    fun showAddFragment()
+    fun onClick()
+    fun onAddClicked()
+    fun onItemClicked(id: Long)
 }

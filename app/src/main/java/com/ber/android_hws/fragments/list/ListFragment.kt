@@ -36,9 +36,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         binding.apply {
             //Adapter
             val adapter = ListAdapter {
-                listener.showAddFragment()
+                listener.onItemClicked(it)
             }
             recyclerview.adapter = adapter
+            recyclerview.layoutManager = LinearLayoutManager(requireContext())
             recyclerview.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
 
             val list = dbInstance.employeeDao().getAll()
@@ -46,12 +47,12 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
             //add button
             floatingActionButton.setOnClickListener {
-                listener.showAddFragment()
+                listener.onAddClicked()
             }
-            // Update button
-            customRowLayout.setOnClickListener {
-                listener.showUpdateFragment()
-            }
+            // Update
+//            customRowLayout.setOnClickListener {
+//                listener.onItemClicked(id: Long)
+//            }
         }
     }
 
