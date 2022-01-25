@@ -3,9 +3,7 @@ package com.ber.android_hws.fragments.list
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +11,6 @@ import com.ber.android_hws.Injector
 import com.ber.android_hws.Navigation
 import com.ber.android_hws.R
 import com.ber.android_hws.databinding.FragmentListBinding
-import kotlinx.android.synthetic.main.custom_row.*
-import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment(R.layout.fragment_list) {
     private var _binding: FragmentListBinding ?= null
@@ -38,9 +33,9 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             val adapter = ListAdapter {
                 listener.onItemClicked(it)
             }
-            recyclerview.adapter = adapter
-            recyclerview.layoutManager = LinearLayoutManager(requireContext())
-            recyclerview.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+            recycler.adapter = adapter
+            recycler.layoutManager = LinearLayoutManager(requireContext())
+            recycler.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
 
             val list = dbInstance.employeeDao().getAll()
             adapter.setData(list)
@@ -49,10 +44,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             floatingActionButton.setOnClickListener {
                 listener.onAddClicked()
             }
-            // Update
-//            customRowLayout.setOnClickListener {
-//                listener.onItemClicked(id: Long)
-//            }
         }
     }
 

@@ -2,8 +2,6 @@ package com.ber.android_hws
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.ber.android_hws.fragments.add.AddFragment
 import com.ber.android_hws.fragments.list.ListFragment
 import com.ber.android_hws.fragments.update.UpdateFragment
@@ -38,13 +36,6 @@ class MainActivity : AppCompatActivity(), Navigation {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, fragment)
             .addToBackStack(null)
-            .commit()
-    }
-
-    override fun onClick() {
-        val fragment = ListFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, fragment)
             .commit()
     }
 }

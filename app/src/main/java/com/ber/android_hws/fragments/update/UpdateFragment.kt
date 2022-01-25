@@ -52,8 +52,8 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
                     Toast.makeText(activity, "Такого id нет", Toast.LENGTH_SHORT).show()
                 } else {
                     editTextName.setText(name)
-                    company = editTextCompany.text.toString()
-                    salary = editTextSalary.text.toString()
+                    editTextCompany.setText(company)
+                    editTextSalary.setText(salary)
 
                     val e = Employee(
                         id = prevInput.id,
@@ -63,7 +63,6 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
                     )
 
                     dbInstance.employeeDao().update(e)
-                    listener.onClick()
                     Toast.makeText(context, "Inputs updated", Toast.LENGTH_SHORT).show()
                 }
             }

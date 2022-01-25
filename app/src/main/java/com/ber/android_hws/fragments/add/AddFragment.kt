@@ -35,7 +35,6 @@ class AddFragment : Fragment(R.layout.fragment_add) {
                 dbInstance.employeeDao().insert(e)
 
                 Toast.makeText(context, "Запись добавлена", Toast.LENGTH_LONG).show()
-            listener.showListFragment()
         }
     }
 }

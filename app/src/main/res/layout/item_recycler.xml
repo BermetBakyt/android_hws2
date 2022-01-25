@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="24sp"
-    android:id="@+id/customRowLayout">
+    android:id="@+id/item_recycler">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textID"

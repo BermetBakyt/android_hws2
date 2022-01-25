@@ -7,15 +7,16 @@
     tools:context=".fragments.add.AddFragment">
 
     <androidx.appcompat.widget.AppCompatEditText
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextName"
-        android:ems="10"
         android:inputType="textPersonName"
         android:hint="Full Name"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:flow_horizontalBias="0.5"
+        app:layout_constraintBottom_toTopOf="@id/editTextCompany"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -31,6 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:flow_horizontalBias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/editTextSalary"
         app:layout_constraintTop_toBottomOf="@id/editTextName"/>
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -54,7 +56,6 @@
         android:textSize="18sp"
         android:text="Save and Go"
         app:layout_constraintEnd_toEndOf="parent"
-        app:flow_horizontalBias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextSalary"/>

@@ -7,7 +7,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ber.android_hws.R
 import com.ber.android_hws.database.Employee
-import kotlinx.android.synthetic.main.custom_row.view.*
 
 class ListAdapter (
     private val click: (id: Long) -> Unit) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
@@ -20,7 +19,7 @@ class ListAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.custom_row, parent, false)
+            .inflate(R.layout.item_recycler, parent, false)
         return ViewHolder(itemView, click)
     }
 
@@ -39,7 +38,7 @@ class ListAdapter (
     ) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(employee: Employee) {
-            val id = itemView.customRowLayout.findViewById<AppCompatTextView>(R.id.textID)
+            val id = itemView.findViewById<AppCompatTextView>(R.id.textID)
             val name = itemView.findViewById<AppCompatTextView>(R.id.textName)
             val company = itemView.findViewById<AppCompatTextView>(R.id.textCompany)
             val salary = itemView.findViewById<AppCompatTextView>(R.id.textSalary)
