@@ -29,9 +29,7 @@ class MainActivity : AppCompatActivity(), Navigation {
     override fun onItemClicked(id: Long) {
         val fragment = UpdateFragment()
         val bundle = Bundle()
-        if(id !=null) {
-            bundle.putLong("id", id)
-        }
+        bundle.putLong("id", id)
         fragment.arguments = bundle
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, fragment)

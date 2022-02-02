@@ -7,12 +7,13 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ber.android_hws.R
 import com.ber.android_hws.database.Employee
+import io.reactivex.Observable
 
 class ListAdapter (
     private val click: (id: Long) -> Unit) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
     var employeeList = listOf<Employee>()
 
-    fun setData(list: List<Employee>) {
+    fun setData(list: Observable<List<Employee>>) {
         this.employeeList = list
         notifyDataSetChanged()
     }
