@@ -2,6 +2,7 @@ package com.ber.android_hws.fragments.add
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -9,6 +10,8 @@ import com.ber.android_hws.Injector
 import com.ber.android_hws.Navigation
 import com.ber.android_hws.R
 import com.ber.android_hws.database.Employee
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_add.*
 
 class AddFragment : Fragment(R.layout.fragment_add) {
@@ -33,7 +36,11 @@ class AddFragment : Fragment(R.layout.fragment_add) {
                     salary = editTextSalary.text.toString().toInt()
                 )
                 dbInstance.employeeDao().insert(e)
-
+                    //выполнение вставки в schedulars потоке
+                    .subscribeOn(Schedulers.io())
+                    //результат в main потоке обработается
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
                 Toast.makeText(context, "Запись добавлена", Toast.LENGTH_LONG).show()
         }
     }

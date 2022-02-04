@@ -13,7 +13,7 @@ class ListAdapter (
     private val click: (id: Long) -> Unit) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
     var employeeList = listOf<Employee>()
 
-    fun setData(list: Observable<List<Employee>>) {
+    fun setData(list: List<Employee>) {
         this.employeeList = list
         notifyDataSetChanged()
     }

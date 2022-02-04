@@ -26,5 +26,5 @@ interface EmployeeDao {
     fun update(employee: Employee) : Completable
 
     @Delete
-    fun delete(employee: Single<Employee>) : Completable
+    fun delete(employee: Employee) : Completable
 }

@@ -11,6 +11,8 @@ import com.ber.android_hws.Injector
 import com.ber.android_hws.Navigation
 import com.ber.android_hws.R
 import com.ber.android_hws.databinding.FragmentListBinding
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class ListFragment : Fragment(R.layout.fragment_list) {
     private var _binding: FragmentListBinding ?= null
@@ -37,18 +39,24 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
 
-            val list = dbInstance.employeeDao().getAll()
-            adapter.setData(list)
+            dbInstance.employeeDao().getAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext {
+                    adapter.setData(it)
+                }
+                .subscribe()
 
-            //add button
-            floatingActionButton.setOnClickListener {
-                listener.onAddClicked()
+                floatingActionButton.setOnClickListener {
+                    listener.onAddClicked()
+                }
+
             }
         }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+
+

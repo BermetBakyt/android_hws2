@@ -10,6 +10,8 @@ import com.ber.android_hws.Navigation
 import com.ber.android_hws.R
 import com.ber.android_hws.database.Employee
 import com.ber.android_hws.databinding.FragmentUpdateBinding
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_add.*
 
 class UpdateFragment : Fragment(R.layout.fragment_update) {
@@ -19,7 +21,7 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
     private lateinit var listener: Navigation
     private val dbInstance get() = Injector.database
 
-    private var empId: Long = 1L
+    private var empId: Long = -1L
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -32,7 +34,7 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
 
         binding.apply {
             // show prev data
-            val id = arguments?.getLong("id") ?: -1L
+            val id = arguments?.getLong("id") ?: 1L
             if (id < 0) {
                 Toast.makeText(activity, "Такого id нет", Toast.LENGTH_SHORT).show()
             }
@@ -45,7 +47,15 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
                     )
 
                     dbInstance.employeeDao().update(e)
-                    Toast.makeText(context, "Inputs updated", Toast.LENGTH_SHORT).show()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnComplete {
+                            Toast.makeText(context, "Inputs updated", Toast.LENGTH_SHORT).show()
+                        }
+                        .doOnError {
+                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                        }
+                        .subscribe()
                 }
             val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
             toolbar.inflateMenu(R.menu.menu)
@@ -60,10 +70,19 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
     private fun deleteEmployee(id: Long) {
         binding.apply {
             // show prev data
-            val employee = dbInstance.employeeDao().getById(id)
-            dbInstance.employeeDao().delete(employee)
-
-            Toast.makeText(context, "Inputs deleted", Toast.LENGTH_SHORT).show()
+            dbInstance.employeeDao().getById(id)
+                .subscribeOn(Schedulers.io())
+                .flatMapCompletable {
+                    dbInstance.employeeDao().delete(it)
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+                    Toast.makeText(context, "Inputs deleted", Toast.LENGTH_SHORT).show()
+                }
+                .doOnError{
+                    Toast.makeText(context, "Something went wrong. Try again", Toast.LENGTH_SHORT).show()
+                }
+                .subscribe()
         }
     }
 
