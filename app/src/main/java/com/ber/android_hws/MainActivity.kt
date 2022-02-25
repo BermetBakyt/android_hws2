@@ -1,39 +1,20 @@
 package com.ber.android_hws
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.ber.android_hws.fragments.add.AddFragment
-import com.ber.android_hws.fragments.list.ListFragment
-import com.ber.android_hws.fragments.update.UpdateFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class MainActivity : AppCompatActivity(), Navigation {
+class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initFragment()
     }
-
     private fun initFragment() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragmentContainerView, ListFragment()).commit()
-    }
-
-    override fun onAddClicked() {
-        val fragment = AddFragment()
-            supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, fragment)
-            .commit()
-    }
-
-    override fun onItemClicked(id: Long) {
-        val fragment = UpdateFragment()
-        val bundle = Bundle()
-        bundle.putLong("id", id)
-        fragment.arguments = bundle
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, fragment)
-            .addToBackStack(null)
-            .commit()
+            .add(R.id.fragment_container, MainFragment())
     }
 }

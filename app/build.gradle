@@ -60,15 +60,20 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:2.4.1"
 
     // Rx-java
-    implementation "io.reactivex.rxjava2:rxjava:2.1.6"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.9"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
-    implementation "androidx.room:room-rxjava2:2.4.0"
-
-    // Kotlin components
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+    implementation "androidx.room:room-rxjava2:2.4.1"
 
     //DataBinding
     kapt "com.android.databinding:compiler:3.2.0-alpha10"
+
+    // Retrofit
+    implementation "com.squareup.okhttp3:okhttp:4.6.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.6.0"
+
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+
+    //
 }
