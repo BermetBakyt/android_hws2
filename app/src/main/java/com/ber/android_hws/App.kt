@@ -2,6 +2,7 @@ package com.ber.android_hws
 
 import android.app.Application
 import android.util.Log
+import com.ber.android_hws.database.SeriesApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,7 +35,7 @@ class App: Application() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        seriesApi = retrofit.create(seriesApi::class.java)
+        seriesApi = retrofit.create(SeriesApi::class.java)
     }
 
     private fun httpLoggingInterceptor(): HttpLoggingInterceptor {
@@ -56,6 +57,7 @@ class App: Application() {
     companion object{
         const val BASE_URL = "https://www.breakingbadapi.com/api/"
         const val TIMEOUT = 300L
+
         private var mInstance: App? = null
         val instance get() = mInstance!!
     }

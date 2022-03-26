@@ -1,21 +1,23 @@
 package com.ber.android_hws
 
-import android.database.Observable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
+import com.ber.android_hws.database.Episode
+
 
 class Adapter (
-    private val click: (pos: Int) -> Unit): Adapter<RecyclerView.ViewHolder>() {
-        private var list = Observable<List<Response.Episode>>
+    private val click: (episode: Episode) -> Unit): Adapter<com.ber.android_hws.Adapter.ViewHolder>() {
+    private var list: List<Episode> = mutableListOf()
 
-    fun setData(list: Observable<List<Response.Episode>>){
+    fun setData(list: List<Episode>) {
         this.list = list
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recycler, parent, false)
@@ -33,14 +35,14 @@ class Adapter (
 
     class ViewHolder(
         itemView: View,
-        private val click: (pos: Int) -> Unit
+        private val click: (episode: Episode) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: String) {
+        fun bind(item: Episode) {
             val txt = itemView.findViewById<AppCompatTextView>(R.id.item_txt)
-            txt.text = item
+            txt.text = item.title
             itemView.setOnClickListener {
-                click.invoke(adapterPosition)
+                click.invoke(item)
             }
         }
     }
